@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/bricemeunier/ytmp3/issues"
   },
-  "homepage": "https://github.com/bricemeunier/ytmp3#readme"
+  "homepage": "https://github.com/bricemeunier/ytmp3#readme",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.18",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "ytdl-core": "^0.29.2"
+  }
 }

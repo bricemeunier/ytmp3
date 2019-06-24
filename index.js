@@ -1,16 +1,27 @@
-var http = require('http');
+var express = require('express');
+var app = express();
 var fs = require('fs');
+var cors = require('cors');
+var ytdl = require('ytdl-core');
+var port=8080;
+app.use(express.static(__dirname + '/'));
 
-function onRequest(request,res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  fs.readFile('./index.html', null, function(error,data) {
-    if (error) {
-      res.writeHead(404);
-      res.write('error 404');
-    }
-    else res.write(data);
-    res.end();
-  });
-}
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
 
-http.createServer(onRequest).listen(8080);
+app.use(cors());
+
+app.get('/download', (req,res) => {
+    var URL = req.query.URL;
+
+    res.header('Content-Disposition', 'attachment; filename="son.mp3"');
+    ytdl(URL, {
+      format: 'mp3'
+    })
+    .on('error', (err) => console.error)
+    .pipe(res);
+});
+
+app.listen(port);
+console.log(`server runnig on port ${port} : http://localhost:${port}/`);
